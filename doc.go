@@ -1,0 +1,4 @@
+/*
+Package kata.
+*/
+package kata
