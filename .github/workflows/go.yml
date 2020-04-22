@@ -22,6 +22,11 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
+    - name: Build
+      env:
+        GOPROXY: "https://proxy.golang.org"
+      run: go build ./...
+
     - name: Install
       run: |
         # add executables installed with go get to PATH
