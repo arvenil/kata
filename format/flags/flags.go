@@ -2,15 +2,13 @@ package flags
 
 import (
 	"flag"
+
+	"github.com/arvenil/kata/format"
 )
 
-// Available flags.
-var (
-	Template string
-	Json     bool
-)
+var Format format.Format
 
 func init() {
-	flag.StringVar(&Template, "template", "", "print result using a Go template")
-	flag.BoolVar(&Json, "json", false, "print result as json")
+	flag.StringVar(&Format.Template, "template", "", "print result using a Go template")
+	flag.BoolVar(&Format.Json, "json", false, "print result as json")
 }

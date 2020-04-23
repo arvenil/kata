@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/arvenil/kata/cmd/kata19/results"
 	"github.com/arvenil/kata/wordchain"
 )
 
@@ -17,13 +16,13 @@ var (
 
 func init() {
 	flag.StringVar(&dictionary, "d", "/usr/share/dict/words", "path to word list")
-	flag.Var(&pairs, "p", "two words separated by comma e.g. `dog,cat`")
+	flag.Var(&pairs, "p", "two words separated by comma e.g. 'dog,cat'")
 }
 
 func main() {
 	flag.Parse()
 	if len(pairs) == 0 {
-		fmt.Println("at least one pair of words is required e.g. `-p dog,cat`")
+		fmt.Println("at least one pair of words is required e.g. '-p dog,cat'")
 		os.Exit(1)
 	}
 
@@ -35,13 +34,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	// For each pair of words try to find word chain and add it to Results{}.
-	r := results.New()
+	// For each pair of words try to find word-chain and append it to results.
+	results := Results{}
 	for _, pair := range pairs {
 		words, err := wc.Chain(pair[0], pair[1])
-		r.Append(pair[0], pair[1], words, err)
+		results.Append(pair[0], pair[1], words, err)
 	}
 
 	// Print results.
-	fmt.Print(r)
+	fmt.Print(results)
 }
