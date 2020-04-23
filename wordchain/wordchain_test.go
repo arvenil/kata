@@ -125,7 +125,7 @@ func TestWordChain_Chain(t *testing.T) {
 					expected := 1
 					hScore := w.HeuristicScore(gotWords[i])
 					if hScore != expected {
-						t.Errorf("Heuristic score between %v and %v is %v, should be %v", gotWords[i-1], gotWords[i], hScore, expected)
+						t.Errorf("heuristic score between %v and %v is %v, should be %v", gotWords[i-1], gotWords[i], hScore, expected)
 					}
 				}
 

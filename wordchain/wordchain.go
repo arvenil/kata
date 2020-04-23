@@ -82,13 +82,13 @@ func (w *Word) HeuristicScore(a string) (score int) {
 
 func (w *WordChain) Chain(start, end string) (words []string, err error) {
 	if len(start) != len(end) {
-		return nil, fmt.Errorf("words need to have the same length: %v(%v)-%v(%v)", start, len(start), end, len(end))
+		return nil, fmt.Errorf("words '%v'(%v) and '%v'(%v) have different length", start, len(start), end, len(end))
 	}
 
 	// Lookup starting word in the dictionary.
 	word := w.words[start]
 	if word == nil {
-		return nil, fmt.Errorf("couldn't find the word in dictionary: %v", start)
+		return nil, fmt.Errorf("could not find '%v' in dictionary", start)
 	}
 
 	// The set of discovered nodes that may need to be (re-)expanded.
@@ -142,5 +142,5 @@ func (w *WordChain) Chain(start, end string) (words []string, err error) {
 		}
 	}
 
-	return words, nil
+	return nil, fmt.Errorf("could not find word chain")
 }

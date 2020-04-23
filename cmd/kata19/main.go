@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/arvenil/kata/cmd/kata19/results"
 	"github.com/arvenil/kata/wordchain"
 )
 
@@ -26,20 +27,21 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Create new instance of WordChain and load the dictionary.
 	wc := wordchain.New()
 	err := wc.LoadWordsFromFile(dictionary, map[string]struct{}{})
 	if err != nil {
 		fmt.Printf("can't load word list: %s\n", err)
 		os.Exit(1)
 	}
+
+	// For each pair of words try to find word chain and add it to Results{}.
+	r := results.New()
 	for _, pair := range pairs {
-		var result string
 		words, err := wc.Chain(pair[0], pair[1])
-		if err != nil {
-			result = err.Error()
-		} else {
-			result = fmt.Sprintf("%v", words)
-		}
-		fmt.Printf("%v-%v: %v\n", pair[0], pair[1], result)
+		r.Append(pair[0], pair[1], words, err)
 	}
+
+	// Print results.
+	fmt.Print(r)
 }
