@@ -4,7 +4,7 @@ import (
 	"github.com/arvenil/kata/format/templates"
 )
 
-// format contains configuration required to Template data.
+// Format contains configuration required to Template data.
 type Format struct {
 	Template string
 	Json     bool
