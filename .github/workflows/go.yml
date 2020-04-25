@@ -48,3 +48,10 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
         path-to-lcov: coverage.lcov
+
+    - name: coverage.out
+      run: cat coverage.out
+    
+    - name: coverage.lcov
+      run: cat coverage.lcov
+ 
