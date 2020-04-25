@@ -96,17 +96,17 @@ func (w *WordChain) Chain(start, end string) (words []string, err error) {
 	// This is usually implemented as a min-heap or priority queue rather than a hash-set.
 	openSet := &PriorityQueue{}
 	heap.Init(openSet)
-	item := &Item{
+	item := &Node{
 		word:   word,
 		fScore: word.HeuristicScore(end),
 	}
-	items := map[string]*Item{}
+	items := map[string]*Node{}
 	items[word.text] = item
 
 	heap.Push(openSet, item)
 
 	for openSet.Len() > 0 {
-		current := heap.Pop(openSet).(*Item)
+		current := heap.Pop(openSet).(*Node)
 		if current.word.text == end {
 			for current != nil {
 				words = append([]string{current.word.text}, words...)
@@ -120,7 +120,7 @@ func (w *WordChain) Chain(start, end string) (words []string, err error) {
 
 				item, ok := items[neighbour.text]
 				if !ok {
-					item = &Item{
+					item = &Node{
 						gScore: 100000000,
 						fScore: 100000000,
 					}

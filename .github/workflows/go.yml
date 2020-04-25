@@ -32,7 +32,7 @@ jobs:
       run: go install -v ./...
 
     - name: Test
-      run: go test -coverpkg=./... -coverprofile=coverage.txt -covermode=atomic -v ./...
+      run: go test -coverpkg=./... -coverprofile=coverage.out -covermode=atomic -v ./...
 
     - name: Codecov
       uses: codecov/codecov-action@v1
@@ -40,7 +40,7 @@ jobs:
     - name: Convert coverage to lcov
       uses: jandelgado/gcov2lcov-action@v1.0.0
       with:
-        infile: coverage.txt
+        infile: coverage.out
         outfile: coverage.lcov
 
     - name: Coveralls

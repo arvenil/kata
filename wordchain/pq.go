@@ -1,18 +1,18 @@
 // This example demonstrates a priority queue built using the heap interface.
 package wordchain
 
-// An Item is something we manage in a priority queue.
-type Item struct {
+// A Node is something we manage in a priority queue.
+type Node struct {
 	word     *Word
 	fScore   int
 	gScore   int
-	cameFrom *Item
+	cameFrom *Node
 	// The index is maintained by the heap.Interface methods.
 	index int // The index of the item in the heap.
 }
 
 // A PriorityQueue implements heap.Interface and holds Items.
-type PriorityQueue []*Item
+type PriorityQueue []*Node
 
 func (pq PriorityQueue) Len() int { return len(pq) }
 
@@ -28,7 +28,7 @@ func (pq PriorityQueue) Swap(i, j int) {
 
 func (pq *PriorityQueue) Push(x interface{}) {
 	n := len(*pq)
-	item := x.(*Item)
+	item := x.(*Node)
 	item.index = n
 	*pq = append(*pq, item)
 }
