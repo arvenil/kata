@@ -19,7 +19,7 @@ func (h *haystackFlag) String() string {
 // Set's argument is a string to be parsed to set the flag.
 // It's a comma-separated list, so we split it.
 func (h *haystackFlag) Set(value string) error {
-	// note: this could be improved by rewriting strings.Split to return []int directly instead of []string
+	// NOTE: This could be improved by rewriting strings.Split to return []int directly instead of []string.
 	words := strings.Split(value, ",")
 	for _, word := range words {
 		i, err := strconv.Atoi(word)

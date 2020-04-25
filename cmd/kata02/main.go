@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/arvenil/kata/chop"
+	"github.com/arvenil/kata/bsearch"
 )
 
 // Available flags.
@@ -15,27 +15,20 @@ var (
 	algorithm string
 )
 
-var algorithms map[string]chop.Chopper
-
 func init() {
 	flag.IntVar(&needle, "needle", 0, "an integer to search for")
 	flag.Var(&haystack, "haystack", "an ordered, comma separated, list of integers")
-	flag.StringVar(&algorithm, "algorithm", "classic", fmt.Sprintf("algorithm to use: %v", algorithms))
-
-	algorithms = map[string]chop.Chopper{
-		"classic":  chop.ChopFunc(chop.Classic),
-		"standard": chop.ChopFunc(chop.Standard),
-	}
+	name := bsearch.Algorithms.Sorted()[0].Name()
+	flag.StringVar(&algorithm, "algorithm", name, fmt.Sprintf("choose from: %s", bsearch.Algorithms))
 }
 
 func main() {
 	flag.Parse()
 
-	if _, ok := algorithms[algorithm]; !ok {
-		fmt.Printf("algorithm '%v' doesn't exist, pick one from: %v\n", algorithm, algorithms)
+	a, ok := bsearch.Algorithms[algorithm]
+	if !ok {
+		fmt.Printf("algorithm '%s' doesn't exist, choose from: %s\n", algorithm, bsearch.Algorithms)
 		os.Exit(1)
 	}
-
-	a := algorithms[algorithm]
-	fmt.Println(a.Chop(needle, haystack))
+	fmt.Println(a.Search(needle, haystack))
 }
