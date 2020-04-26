@@ -1,5 +1,5 @@
 /*
-Usage of kata19:
+kata19 command usage.
 
   -d string
         path to dictionary (default "/usr/share/dict/words")

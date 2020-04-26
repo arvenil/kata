@@ -1,5 +1,5 @@
 /*
-Usage of kata02
+kata02 command usage.
 
   -algorithm string
         choose one: interpolation, loop, loopexponential, loopslicing, recursive, recursiveslicing, standard (default "interpolation")
