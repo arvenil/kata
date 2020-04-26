@@ -50,8 +50,11 @@ jobs:
         path-to-lcov: coverage.lcov
 
     - name: coverage.out
-      run: cat coverage.out
-    
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage.out
+
     - name: coverage.lcov
-      run: cat coverage.lcov
- 
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage.lcov
