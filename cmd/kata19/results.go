@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/arvenil/kata/templates/format/flags"
+	"github.com/arvenil/kata/template/format/flags"
 )
 
 // Results enables pretty-printing of results.

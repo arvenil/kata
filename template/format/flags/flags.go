@@ -6,7 +6,7 @@ package flags
 import (
 	"flag"
 
-	"github.com/arvenil/kata/templates/format"
+	"github.com/arvenil/kata/template/format"
 )
 
 // Format contains configuration required to format output.

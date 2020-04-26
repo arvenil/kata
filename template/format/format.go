@@ -4,7 +4,7 @@ Package format provides configuration for output formatting.
 package format
 
 import (
-	"github.com/arvenil/kata/templates"
+	"github.com/arvenil/kata/template"
 )
 
 // Format contains configuration required to Template data.
@@ -22,5 +22,5 @@ func (f Format) Parse(template string, data interface{}) string {
 		template = "{{ json . }}"
 	}
 
-	return templates.Parse(template, data)
+	return template.Parse(template, data)
 }
