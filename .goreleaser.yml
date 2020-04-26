@@ -2,12 +2,12 @@ builds:
 -
   id: kata02
   binary: kata02
-  main: ./cmd/kata02/main.go
+  main: ./cmd/kata02
   env:
     - CGO_ENABLED=0
 -
   id: kata19
   binary: kata19
-  main: ./cmd/kata19/main.go
+  main: ./cmd/kata19
   env:
     - CGO_ENABLED=0
