@@ -1,13 +1,20 @@
 package bsearch
 
-func LoopSlicing(n int, v []int) (i int) {
-	for len(v) > 0 {
-		m := (len(v) - 1) / 2
-		if v[m] < n {
-			v = v[m+1:]
+// LoopSlicing searches for n (needle) in a sorted slice of ints h (haystack).
+// The return value is the index of n or -1 if n is not present in h.
+// The slice must be sorted in ascending order.
+//
+// LoopSlicing uses 'for' loop to implement binary algorithms.
+//
+// LoopSlicing slices haystack to new boundaries every iteration of 'for' loop.
+func LoopSlicing(n int, h []int) (i int) {
+	for len(h) > 0 {
+		m := (len(h) - 1) / 2
+		if h[m] < n {
+			h = h[m+1:]
 			i += m + 1
-		} else if v[m] > n {
-			v = v[:m]
+		} else if h[m] > n {
+			h = h[:m]
 		} else {
 			return m + i
 		}

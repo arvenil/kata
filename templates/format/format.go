@@ -1,13 +1,16 @@
+/*
+Package format provides configuration for output formatting.
+*/
 package format
 
 import (
-	"github.com/arvenil/kata/format/templates"
+	"github.com/arvenil/kata/templates"
 )
 
 // Format contains configuration required to Template data.
 type Format struct {
 	Template string
-	Json     bool
+	JSON     bool
 }
 
 // Parse Template and fill it with data.
@@ -15,7 +18,7 @@ func (f Format) Parse(template string, data interface{}) string {
 	if f.Template != "" {
 		template = f.Template
 	}
-	if f.Json {
+	if f.JSON {
 		template = "{{ json . }}"
 	}
 

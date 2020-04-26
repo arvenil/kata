@@ -1,4 +1,3 @@
-// Package templates is based on https://github.com/moby/moby/blob/503b1a9b6f24488db6a67f7ba24258e4ff5ea2a7/daemon/logger/templates/templates.go
 package templates
 
 import (
@@ -28,8 +27,8 @@ var basicFunctions = template.FuncMap{
 	"upper": strings.ToUpper,
 }
 
-// NewParse creates a new tagged template with the basic functions
+// New creates a new tagged template with the basic functions
 // and parses the given format.
-func NewParse(tag, format string) (*template.Template, error) {
+func New(tag, format string) (*template.Template, error) {
 	return template.New(tag).Funcs(basicFunctions).Parse(format)
 }

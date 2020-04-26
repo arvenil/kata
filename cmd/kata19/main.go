@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/arvenil/kata/wordchain"
+	"github.com/arvenil/kata/ladder"
 )
 
 // Available flags.
@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&dictionary, "d", "/usr/share/dict/words", "path to word list")
+	flag.StringVar(&dictionary, "d", "/usr/share/dict/words", "path to dictionary")
 	flag.Var(&pairs, "p", "two words separated by comma e.g. 'dog,cat'")
 }
 
@@ -26,15 +26,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Create new instance of WordChain and load the dictionary.
-	wc := wordchain.New()
-	err := wc.LoadWordsFromFile(dictionary, map[string]struct{}{})
+	// Create new Ladder and Load the dictionary.
+	wc := ladder.New()
+	err := wc.Load(dictionary, map[string]struct{}{})
 	if err != nil {
 		fmt.Printf("can't load word list: %s\n", err)
 		os.Exit(1)
 	}
 
-	// For each pair of words try to find word-chain and append it to results.
+	// For each pair of words try to find word-ladder and append it to results.
 	results := Results{}
 	for _, pair := range pairs {
 		words, err := wc.Chain(pair[0], pair[1])

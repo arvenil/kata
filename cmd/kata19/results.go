@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/arvenil/kata/format/flags"
+	"github.com/arvenil/kata/templates/format/flags"
 )
 
-// Results
+// Results enables pretty-printing of results.
 type Results []result
 
 type result struct {
@@ -17,6 +17,7 @@ type result struct {
 	Err   string   `json:",omitempty"`
 }
 
+// Append new result.
 func (r *Results) Append(start, end string, words []string, err error) {
 	var errString string
 	if err != nil {
@@ -33,10 +34,10 @@ func (r *Results) Append(start, end string, words []string, err error) {
 // String representation of the list.
 func (r Results) String() string {
 	header := []string{
-		"Start",
-		"End",
-		"Words chain",
-		"Error (if any)",
+		"start",
+		"end",
+		"word-ladder",
+		"error (if any)",
 	}
 	field := []string{
 		"{{.Start}}",

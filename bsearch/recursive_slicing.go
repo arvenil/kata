@@ -1,18 +1,25 @@
 package bsearch
 
-func RecursiveSlicing(i int, v []int) int {
-	m := len(v) / 2
+// RecursiveSlicing searches for n (needle) in a sorted slice of ints h (haystack).
+// The return value is the index of n or -1 if n is not present in h.
+// The slice must be sorted in ascending order.
+//
+// RecursiveSlicing uses recursion to implement binary algorithms.
+//
+// RecursiveSlicing calls itself with haystack sliced to new boundaries.
+func RecursiveSlicing(n int, h []int) int {
+	m := len(h) / 2
 	switch {
-	case len(v) == 0:
+	case len(h) == 0:
 		return -1 // not found
-	case v[m] > i:
-		return Recursive(i, v[:m])
-	case v[m] < i:
-		r := Recursive(i, v[m+1:])
-		if r == -1 {
+	case h[m] > n:
+		return RecursiveSlicing(n, h[:m])
+	case h[m] < n:
+		i := RecursiveSlicing(n, h[m+1:])
+		if i == -1 {
 			return -1
 		}
-		return r + m + 1
+		return i + m + 1
 	}
 	return m
 }

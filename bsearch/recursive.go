@@ -1,19 +1,24 @@
 package bsearch
 
-func Recursive(i int, v []int) int {
-	return recursive(i, v, 0, len(v)-1)
+// Recursive searches for n (needle) in a sorted slice of ints h (haystack).
+// The return value is the index of n or -1 if n is not present in h.
+// The slice must be sorted in ascending order.
+//
+// Recursive uses recursion to implement binary algorithms.
+func Recursive(n int, h []int) int {
+	return recursive(n, h, 0, len(h)-1)
 }
 
-func recursive(i int, v []int, l, h int) int {
-	if l > h {
+func recursive(n int, h []int, l, r int) int {
+	if l > r {
 		return -1
 	}
-	m := (l + h) / 2
-	if v[m] == i {
+	m := (l + r) / 2
+	if h[m] == n {
 		return m
 	}
-	if i < v[m] {
-		return recursive(i, v, l, m-1)
+	if n < h[m] {
+		return recursive(n, h, l, m-1)
 	}
-	return recursive(i, v, m+1, h)
+	return recursive(n, h, m+1, r)
 }

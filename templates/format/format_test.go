@@ -7,7 +7,7 @@ import (
 func TestFormat_Parse(t *testing.T) {
 	type fields struct {
 		Template string
-		Json     bool
+		JSON     bool
 	}
 	type args struct {
 		template string
@@ -19,13 +19,13 @@ func TestFormat_Parse(t *testing.T) {
 		args   args
 		want   string
 	}{
-		{"", fields{"", true}, args{"", &Format{}}, "{\"Template\":\"\",\"Json\":false}"},
+		{"json", fields{"", true}, args{"", &Format{}}, "{\"Template\":\"\",\"JSON\":false}"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := Format{
 				Template: tt.fields.Template,
-				Json:     tt.fields.Json,
+				JSON:     tt.fields.JSON,
 			}
 			if got := f.Parse(tt.args.template, tt.args.data); got != tt.want {
 				t.Errorf("Parse() = %v, want %v", got, tt.want)

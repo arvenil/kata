@@ -6,16 +6,16 @@ import (
 )
 
 func TestNewParse(t *testing.T) {
-	tm, err := NewParse("foo", "this is a {{ . }}")
+	tm, err := New("foo", "this is a {{ . }}")
 	if err != nil {
-		t.Errorf("NewParse() error = %v", err)
+		t.Errorf("New() error = %v", err)
 		return
 	}
 
 	var b bytes.Buffer
 	err = tm.Execute(&b, "string")
 	if err != nil {
-		t.Errorf("NewParse() error = %v", err)
+		t.Errorf("New() error = %v", err)
 		return
 	}
 	got := b.String()

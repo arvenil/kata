@@ -4,6 +4,9 @@ install:                  ## Install programs.
 test:                     ## Run tests.
 	go test -v -race ./...
 
+bench:                    ## Run benchmarks.
+	go test -run=XXX -bench=. ./...
+
 fmt:	                  ## Format code.
 	go fmt ./...
 
@@ -14,4 +17,4 @@ help: Makefile            ## Display this help message.
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 .DEFAULT_GOAL := help
-.PHONY: install test fmt help
+.PHONY: install test bench fmt help

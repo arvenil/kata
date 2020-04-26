@@ -1,11 +1,24 @@
-package wordchain
+package ladder
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
 
-func TestWordChain_Chain(t *testing.T) {
+func ExampleLadder_Chain() {
+	l := New()
+	l.Load("/usr/share/dict/words", nil)
+	words, err := l.Chain("gold", "lead")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(words)
+	// Output:
+	// [gold goad load lead]
+}
+
+func TestLadder_Chain(t *testing.T) {
 	t.Parallel()
 	type args struct {
 		start string
@@ -22,7 +35,7 @@ func TestWordChain_Chain(t *testing.T) {
 		{args{"soup", "rice"}, []string{"soup", "souk", "sock", "rock", "rick", "rice"}, false},
 		{args{"ruby", "code"}, []string{"ruby", "rudy", "rude", "rode", "code"}, false},
 	}
-	// Append also reversed cases e.g. cat-dog becomes dog-cat.
+	// push also reversed cases e.g. cat-dog becomes dog-cat.
 	for _, t := range tests[:len(tests)-1] {
 		var wantWords = make([]string, len(t.wantWords))
 		for i := range t.wantWords {
@@ -43,7 +56,7 @@ func TestWordChain_Chain(t *testing.T) {
 	t.Run("deterministic", func(t *testing.T) {
 		t.Parallel()
 		w := New()
-		// WordChain results are non-deterministic, e.g. dog-cat pair may return [dog cog cot cat] or [dog dot dat cat].
+		// Ladder results are non-deterministic, e.g. dog-cat pair may return [dog cog cot cat] or [dog dot dat cat].
 		// To visualize common examples in tests it's easier to force only one possibility by excluding some words.
 		exclude := map[string]struct{}{
 			"cot":   {},
@@ -62,8 +75,8 @@ func TestWordChain_Chain(t *testing.T) {
 			"baloo": {},
 			"balon": {},
 		}
-		// w.LoadWordsFromFile("/usr/share/dict/words")
-		err := w.LoadWordsFromFile("testdata/words_alpha.txt", exclude)
+		// w.Load("/usr/share/dict/words")
+		err := w.Load("testdata/words_alpha.txt", exclude)
 		if err != nil {
 			t.Errorf("unable to load word list: %v", err)
 		}
@@ -88,11 +101,11 @@ func TestWordChain_Chain(t *testing.T) {
 		t.Parallel()
 		// Results may differ each run when we use full dictionary as there are multiple possible outcomes.
 		// However there are certain characteristics which we can verify:
-		// * length of the chain needs to be the same because algorithm should pick always shortest path
+		// * length of the ladder needs to be the same because algorithm should pick always shortest path
 		// * distance between words should always be the same, just one letter difference
 		// * first and last word should match initial start and end word
 		w := New()
-		err := w.LoadWordsFromFile("testdata/words_alpha.txt", map[string]struct{}{})
+		err := w.Load("testdata/words_alpha.txt", map[string]struct{}{})
 		if err != nil {
 			t.Errorf("unable to load word list: %v", err)
 		}
@@ -107,7 +120,7 @@ func TestWordChain_Chain(t *testing.T) {
 					return
 				}
 
-				// Length of the chain should be the same for all  because algorithm picks shortest path.
+				// Length of the ladder should be the same for all  because algorithm picks shortest path.
 				if len(gotWords) != len(tt.wantWords) {
 					t.Errorf("len(Chain()) = %v, want %v", len(gotWords), len(tt.wantWords))
 				}
@@ -118,12 +131,12 @@ func TestWordChain_Chain(t *testing.T) {
 						continue
 					}
 
-					// An overkill to initialize Word to just use HeuristicScore() func but it's a test 🤷
-					w := &Word{
+					// An overkill to initialize word to just use Score() algorithms but it's a test 🤷
+					w := &word{
 						text: gotWords[i-1],
 					}
 					expected := 1
-					hScore := w.HeuristicScore(gotWords[i])
+					hScore := w.Score(gotWords[i])
 					if hScore != expected {
 						t.Errorf("heuristic score between %v and %v is %v, should be %v", gotWords[i-1], gotWords[i], hScore, expected)
 					}

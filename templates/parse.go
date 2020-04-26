@@ -10,7 +10,7 @@ func Parse(format string, data interface{}) string {
 	b := &bytes.Buffer{}
 	w := tabwriter.NewWriter(b, 0, 0, 2, ' ', 0)
 
-	tmpl, err := NewParse("", format)
+	tmpl, err := New("", format)
 	if err != nil {
 		return err.Error()
 	}

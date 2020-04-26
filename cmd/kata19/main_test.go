@@ -8,9 +8,9 @@ func ExampleMain() {
 	os.Args = []string{
 		os.Args[0],
 		"-p", "gold,lead",
+		"-template", "{{ json . }}",
 	}
 	main()
 	// Output:
-	// Start  End   Words chain            Error (if any)
-	// gold   lead  [gold goad load lead]
+	// [{"Start":"gold","End":"lead","Words":["gold","goad","load","lead"]}]
 }
