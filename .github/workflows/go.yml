@@ -38,7 +38,7 @@ jobs:
       uses: codecov/codecov-action@v1
 
     - name: Convert coverage to lcov
-      uses: jandelgado/gcov2lcov-action@v1.0.0
+      uses: jandelgado/gcov2lcov-action@c760baabceadcd9ab34f1a5244f0db8472abd6db
       with:
         infile: coverage.out
         outfile: coverage.lcov
