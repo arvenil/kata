@@ -16,11 +16,18 @@ var (
 
 func init() {
 	flag.StringVar(&dictionary, "d", "/usr/share/dict/words", "path to dictionary")
-	flag.Var(&pairs, "p", "two words separated by comma e.g. 'dog,cat'")
+	flag.Var(&pairs, "p", "two words separated by comma e.g. dog,cat")
 }
 
 func main() {
 	flag.Parse()
+
+	// At least one flag needs to be passed otherwise print Usage().
+	if flag.NFlag() == 0 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	if len(pairs) == 0 {
 		fmt.Println("at least one pair of words is required e.g. '-p dog,cat'")
 		os.Exit(1)

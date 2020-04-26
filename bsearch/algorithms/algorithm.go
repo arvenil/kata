@@ -5,6 +5,6 @@ package algorithms
 // The slice must be sorted in ascending order.
 // Algorithm has name.
 type Algorithm interface {
-	Search(n int, v []int) int
+	Search(n int, h []int) int
 	Name() string
 }

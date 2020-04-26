@@ -1,11 +1,11 @@
 /*
 Package ladder implements word-ladder puzzle solver.
 
-Wikipedia
-
 A word-ladder puzzle begins with two words,
 and to solve the puzzle one must find a chain of other words to link the two,
 in which two adjacent words (that is, words in successive steps) differ by one letter.
+
+https://en.wikipedia.org/wiki/Word_ladder
 
 Algorithm
 
@@ -67,10 +67,10 @@ Pseudocode
         // Open set is empty but goal was never reached
         return failure
 
-Links
+https://en.wikipedia.org/wiki/A*_search_algorithm
+
+CodeKata
 
     http://codekata.com/kata/kata19-word-chains/
-    https://en.wikipedia.org/wiki/Word_ladder
-    https://en.wikipedia.org/wiki/A*_search_algorithm
 */
 package ladder

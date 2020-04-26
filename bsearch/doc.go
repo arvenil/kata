@@ -1,8 +1,6 @@
 /*
 Package bsearch provides different implementations of binary algorithms.
 
-Wikipedia
-
 In computer science, binary algorithms, also known as half-interval algorithms, logarithmic algorithms, or binary chop,
 is a algorithms algorithm that finds the position of a target value within a sorted array.
 Binary algorithms compares the target value to the middle element of the array.
@@ -10,6 +8,8 @@ If they are not equal, the half in which the target cannot lie is eliminated
 and the algorithms continues on the remaining half, again taking the middle element to compare to the target value,
 and repeating this until the target value is found.
 If the algorithms ends with the remaining half being empty, the target is not in the array.
+
+https://en.wikipedia.org/wiki/Binary_search_algorithm
 
 Algorithm
 
@@ -32,8 +32,6 @@ All variables follow idiomatic naming as follows:
 
 Pseudocode
 
-https://en.wikipedia.org/wiki/Binary_search_algorithm
-
     function binary_search(A, n, T) is
         L := 0
         R := n − 1
@@ -46,6 +44,8 @@ https://en.wikipedia.org/wiki/Binary_search_algorithm
             else:
                 return m
         return unsuccessful
+
+https://en.wikipedia.org/wiki/Binary_search_algorithm
 
 CodeKata
 
