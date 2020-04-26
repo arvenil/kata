@@ -34,6 +34,7 @@ brews:
       name: homebrew-kata
     homepage: "https://github.com/arvenil/kata"
     description: "Kata 形🤺 exercises"
+    folder: Formula
     test: |
       system "#{bin}/kata02 -h"
       system "#{bin}/kata19 -h"

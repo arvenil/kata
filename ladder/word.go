@@ -1,6 +1,6 @@
 package ladder
 
-// word
+// word as text with its neighbourhoods.
 type word struct {
 	text           string
 	neighbourhoods map[string]map[string]*word

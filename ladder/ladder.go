@@ -19,8 +19,8 @@ type Ladder struct {
 	masks map[string]map[string]*word
 }
 
-// Chain of words from start to end,
-// in which two adjacent words (that is, words in successive steps) differ by one letter.
+// Chain of words from start to end, in which two adjacent words
+// (that is, words in successive steps) differ by one letter.
 func (l *Ladder) Chain(start, end string) (words []string, err error) {
 	if len(start) != len(end) {
 		return nil, fmt.Errorf("words '%v'(%v) and '%v'(%v) have different length", start, len(start), end, len(end))
@@ -134,7 +134,7 @@ func (l *Ladder) push(w string) {
 	}
 }
 
-// loaded is true if dictionary was already loaded.
+// loaded returns true if dictionary was already loaded.
 func (l *Ladder) loaded() bool {
 	switch {
 	case l.words == nil, l.masks == nil:
