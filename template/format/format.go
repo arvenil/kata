@@ -7,20 +7,20 @@ import (
 	"github.com/arvenil/kata/template"
 )
 
-// Format contains configuration required to Template data.
+// Format contains configuration required to template data.
 type Format struct {
-	Template string
-	JSON     bool
+	Text string
+	JSON bool
 }
 
-// Parse Template and fill it with data.
-func (f Format) Parse(template string, data interface{}) string {
-	if f.Template != "" {
-		template = f.Template
+// Parse text as template and fill it with data.
+func (f Format) Parse(text string, data interface{}) string {
+	if f.Text != "" {
+		text = f.Text
 	}
 	if f.JSON {
-		template = "{{ json . }}"
+		text = "{{ json . }}"
 	}
 
-	return template.Parse(template, data)
+	return template.Parse(text, data)
 }

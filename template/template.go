@@ -27,8 +27,7 @@ var basicFunctions = template.FuncMap{
 	"upper": strings.ToUpper,
 }
 
-// New creates a new tagged template with the basic functions
-// and parses the given format.
-func New(tag, format string) (*template.Template, error) {
-	return template.New(tag).Funcs(basicFunctions).Parse(format)
+// New returns a new named template.Text with the basic functions and parses text as template.
+func New(name, text string) (*template.Template, error) {
+	return template.New(name).Funcs(basicFunctions).Parse(text)
 }

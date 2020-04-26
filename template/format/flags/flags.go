@@ -13,6 +13,6 @@ import (
 var Format format.Format
 
 func init() {
-	flag.StringVar(&Format.Template, "template", "", "print result using a Go template")
-	flag.BoolVar(&Format.JSON, "json", false, "print result as json")
+	flag.StringVar(&Format.Text, "template", "", "pretty-print results using a Go template")
+	flag.BoolVar(&Format.JSON, "json", false, "print results as json")
 }
