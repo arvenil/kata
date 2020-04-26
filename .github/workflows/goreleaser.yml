@@ -28,3 +28,8 @@ jobs:
           key: ${{ secrets.YOUR_PRIVATE_KEY }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        builds:
+          - binary: kata02
+            main: ./cmd/kata02/main.go
+          - binary: kata19
+            main: ./cmd/kata19/main.go
