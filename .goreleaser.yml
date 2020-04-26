@@ -11,3 +11,13 @@ builds:
   main: ./cmd/kata19
   env:
     - CGO_ENABLED=0
+
+brews:
+  - github:
+      owner: arvenil
+      name: homebrew-kata
+    homepage: "https://github.com/arvenil/kata"
+    description: "Kata 形🤺 exercises"
+    test: |
+      system "#{bin}/kata02 -h"
+      system "#{bin}/kata19 -h"
