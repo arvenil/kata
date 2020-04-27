@@ -1,5 +1,5 @@
 /*
-Kata 形🤺
+Package kata 形🤺 provides playground for various code exercises.
 
 Kata is a Japanese word (型 or 形) meaning literally "form"
 referring to a detailed choreographed pattern of movements made to be practised alone,
