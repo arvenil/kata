@@ -29,7 +29,7 @@ changelog:
     - '^docs:'
     - '^test:'
 brews:
-  - github:
+  - tap:
       owner: arvenil
       name: homebrew-kata
     homepage: "https://github.com/arvenil/kata"
@@ -38,3 +38,6 @@ brews:
     test: |
       system "#{bin}/kata02 -h"
       system "#{bin}/kata19 -h"
+signs:
+  - artifacts: all
+    args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
