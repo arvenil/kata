@@ -1,5 +1,5 @@
 /*
-Package bsearch provides different implementations of binary algorithms.
+Package bsearch provides binary search functions.
 
 In computer science, binary algorithms, also known as half-interval algorithms, logarithmic algorithms, or binary chop,
 is a algorithms algorithm that finds the position of a target value within a sorted array.
