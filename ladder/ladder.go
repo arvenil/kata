@@ -41,6 +41,7 @@ func (l *Ladder) Chain(start, end string) (words []string, err error) {
 	// Initially, only the start node is known.
 	openSet := &priorityQueue{}
 	heap.Init(openSet)
+
 	item := &node{
 		word:   word,
 		fScore: word.Score(end),
@@ -57,12 +58,12 @@ func (l *Ladder) Chain(start, end string) (words []string, err error) {
 				words = append([]string{current.word.text}, words...)
 				current = current.prev
 			}
+
 			return words, nil
 		}
 
 		for _, neighbourhood := range current.word.neighbourhoods {
 			for _, neighbour := range neighbourhood {
-
 				item, ok := items[neighbour.text]
 				if !ok {
 					item = &node{
@@ -77,6 +78,7 @@ func (l *Ladder) Chain(start, end string) (words []string, err error) {
 					item.prev = current
 					item.gScore = gScoreTentative
 					item.fScore = gScoreTentative + neighbour.Score(end)
+
 					if !ok {
 						heap.Push(openSet, item)
 					} else {
@@ -107,6 +109,7 @@ func (l *Ladder) Load(path string, exclude map[string]struct{}) error {
 		if _, ok := exclude[text]; ok {
 			continue
 		}
+
 		l.push(text)
 	}
 
@@ -129,6 +132,7 @@ func (l *Ladder) push(w string) {
 		if l.masks[mask] == nil {
 			l.masks[mask] = map[string]*word{}
 		}
+
 		l.masks[mask][w] = l.words[w]
 		l.words[w].neighbourhoods[mask] = l.masks[mask]
 	}
@@ -140,5 +144,6 @@ func (l *Ladder) loaded() bool {
 	case l.words == nil, l.masks == nil:
 		return false
 	}
+
 	return true
 }

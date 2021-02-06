@@ -18,9 +18,24 @@ var tests = []struct {
 }{
 	{args{"cat", "dog"}, []string{"cat", "dat", "dot", "dog"}, false},
 	{args{"gold", "lead"}, []string{"gold", "goad", "load", "lead"}, false},
-	{args{"above", "below"}, []string{"above", "abote", "abate", "alate", "blate", "blats", "boats", "bolts", "boles", "bales", "baler", "balor", "balow", "below"}, false},
 	{args{"soup", "rice"}, []string{"soup", "souk", "sock", "rock", "rick", "rice"}, false},
 	{args{"ruby", "code"}, []string{"ruby", "rudy", "rude", "rode", "code"}, false},
+	{args{"above", "below"}, []string{
+		"above",
+		"abote",
+		"abate",
+		"alate",
+		"blate",
+		"blats",
+		"boats",
+		"bolts",
+		"boles",
+		"bales",
+		"baler",
+		"balor",
+		"balow",
+		"below",
+	}, false},
 }
 
 func init() {
@@ -145,13 +160,37 @@ func TestLadder_Chain_NonDeterministic(t *testing.T) {
 	}
 }
 
+func TestLadder_Chain_Errors(t *testing.T) {
+	t.Parallel()
+
+	var err error
+
+	w := New()
+
+	if _, err = w.Chain("cat", "dog"); err == nil {
+		t.Error("expected an error: dictionary is not loaded yet")
+	}
+
+	if _, err = w.Chain("cat", "mouse"); err == nil {
+		t.Error("expected an error: 'start' word has different length than 'end' word")
+	}
+
+	if _, err = w.Chain("288D3A55", "288D3A55"); err == nil {
+		t.Error("expected an error: word doesn't exist in dictionary")
+	}
+}
+
 func ExampleLadder_Chain() {
 	l := New()
-	l.Load("/usr/share/dict/words", nil)
+	if err := l.Load("/usr/share/dict/words", nil); err != nil {
+		panic(err)
+	}
+
 	words, err := l.Chain("gold", "lead")
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(words)
 	// Output:
 	// [gold goad load lead]
