@@ -9,13 +9,15 @@ package bsearch
 // LoopSlicing slices haystack to new boundaries every iteration of 'for' loop.
 func LoopSlicing(n int, h []int) (i int) {
 	for len(h) > 0 {
-		m := (len(h) - 1) / 2
-		if h[m] < n {
+		m := (len(h) - 1) / 2 //nolint:gomnd
+
+		switch {
+		case h[m] < n:
 			h = h[m+1:]
 			i += m + 1
-		} else if h[m] > n {
+		case h[m] > n:
 			h = h[:m]
-		} else {
+		default:
 			return m + i
 		}
 	}

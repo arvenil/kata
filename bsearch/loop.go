@@ -8,17 +8,20 @@ package bsearch
 func Loop(n int, h []int) int {
 	l := 0
 	r := len(h) - 1
+
 	return loop(n, h, l, r)
 }
 
 func loop(n int, h []int, l, r int) int {
 	for l <= r {
-		m := (l + r) / 2
-		if h[m] < n {
+		m := (l + r) / 2 //nolint:gomnd
+
+		switch {
+		case h[m] < n:
 			l = m + 1
-		} else if h[m] > n {
+		case h[m] > n:
 			r = m - 1
-		} else {
+		default:
 			return m
 		}
 	}

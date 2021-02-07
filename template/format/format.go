@@ -18,6 +18,7 @@ func (f Format) Parse(text string, data interface{}) string {
 	if f.Text != "" {
 		text = f.Text
 	}
+
 	if f.JSON {
 		text = "{{ json . }}"
 	}

@@ -18,8 +18,7 @@ var (
 func init() {
 	flag.IntVar(&needle, "needle", 0, "an integer to search for in haystack e.g. 5")
 	flag.Var(&haystack, "haystack", "comma-separated, sorted, list of integers e.g. 1,5,7")
-	name := algorithms.Slice[0].Name()
-	flag.StringVar(&algorithm, "algorithm", name, fmt.Sprintf("choose from: %s", algorithms.Slice))
+	flag.StringVar(&algorithm, "algorithm", algorithms.Slice[0].String(), fmt.Sprintf("choose from: %s", algorithms.Slice))
 }
 
 func main() {
@@ -34,10 +33,10 @@ func main() {
 	// Check if algorithm is valid.
 	a, ok := algorithms.Map[algorithm]
 	if !ok {
-		fmt.Printf("algorithm '%s' doesn't exist, choose from: %s\n", algorithm, algorithms.Slice)
+		fmt.Fprintf(os.Stderr, "algorithm '%s' doesn't exist, choose from: %s\n", algorithm, algorithms.Slice)
 		os.Exit(1)
 	}
 
 	// Search for needle in haystack.
-	fmt.Println(a.Search(needle, haystack))
+	fmt.Fprintln(os.Stdout, a.Search(needle, haystack))
 }

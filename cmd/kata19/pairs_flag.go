@@ -18,9 +18,11 @@ func (p *pairsFlag) String() string {
 // It's a comma-separated list, so we split it.
 func (p *pairsFlag) Set(value string) error {
 	words := strings.Split(value, ",")
-	if len(words) != 2 {
+	if len(words) != 2 { //nolint:gomnd
 		return fmt.Errorf("flag requires exactly two words separated by comma e.g. `dog,cat` but got: %v", value)
 	}
+
 	*p = append(*p, words)
+
 	return nil
 }

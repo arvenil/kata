@@ -1,3 +1,5 @@
+PATH := $(shell go env GOPATH)/bin:$(PATH)
+
 install:                  ## Install programs.
 	go install -v ./...
 
@@ -9,6 +11,13 @@ bench:                    ## Run benchmarks.
 
 fmt:	                  ## Format code.
 	go fmt ./...
+
+lint:                     ## Lint code.
+	golangci-lint run --enable-all
+
+doc:                      ## Open godoc.
+	pkill godoc; godoc &
+	open "http://localhost:6060/pkg/$$(go list -m)"
 
 help: Makefile            ## Display this help message.
 	@echo "Use \`make <target>\` where <target> is one of:"

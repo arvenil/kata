@@ -8,7 +8,8 @@ package bsearch
 //
 // RecursiveSlicing calls itself with haystack sliced to new boundaries.
 func RecursiveSlicing(n int, h []int) int {
-	m := len(h) / 2
+	m := len(h) / 2 //nolint:gomnd
+
 	switch {
 	case len(h) == 0:
 		return -1 // not found
@@ -19,7 +20,9 @@ func RecursiveSlicing(n int, h []int) int {
 		if i == -1 {
 			return -1
 		}
+
 		return i + m + 1
 	}
+
 	return m
 }

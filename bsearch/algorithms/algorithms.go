@@ -10,10 +10,11 @@ type Algorithms []Algorithm
 
 // Map of Algorithms indexed by name.
 func (f Algorithms) Map() map[string]Algorithm {
-	var funcs = make(map[string]Algorithm, len(f))
+	funcs := make(map[string]Algorithm, len(f))
 	for _, f := range f {
-		funcs[f.Name()] = f
+		funcs[f.String()] = f
 	}
+
 	return funcs
 }
 
@@ -21,9 +22,11 @@ func (f Algorithms) Map() map[string]Algorithm {
 func (f Algorithms) Names() []string {
 	names := make([]string, 0, len(f))
 	for _, f := range f {
-		names = append(names, f.Name())
+		names = append(names, f.String())
 	}
+
 	sort.Strings(names)
+
 	return names
 }
 

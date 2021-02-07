@@ -6,7 +6,7 @@ import (
 
 // Slice is a list of all available binary search algorithms.
 // Register here any new Func.
-var Slice = Algorithms{
+var Slice = Algorithms{ //nolint:gochecknoglobals
 	Func(bsearch.Interpolation),
 	Func(bsearch.Loop),
 	Func(bsearch.Exponential),

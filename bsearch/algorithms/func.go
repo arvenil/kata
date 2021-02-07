@@ -20,12 +20,13 @@ func (f Func) Search(n int, h []int) int {
 	return f(n, h)
 }
 
-// Name of the algorithm.
-func (f Func) Name() string {
+// String returns name of the algorithm.
+func (f Func) String() string {
 	name := runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
 	field := strings.SplitAfter(name, ".")
 	name = field[len(field)-1]
 	name = strings.ToLower(name)
+
 	return name
 }
 

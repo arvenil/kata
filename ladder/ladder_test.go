@@ -1,9 +1,12 @@
-package ladder
+package ladder_test
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 	"testing"
+
+	"github.com/arvenil/kata/ladder"
 )
 
 type args struct {
@@ -41,10 +44,11 @@ var tests = []struct {
 func init() {
 	// Push to tests also reversed cases e.g. cat-dog becomes dog-cat.
 	for _, t := range tests[:len(tests)-1] {
-		var wantWords = make([]string, len(t.wantWords))
+		wantWords := make([]string, len(t.wantWords))
 		for i := range t.wantWords {
 			wantWords[i] = t.wantWords[len(t.wantWords)-1-i]
 		}
+
 		r := struct {
 			args      args
 			wantWords []string
@@ -60,7 +64,7 @@ func init() {
 
 func TestLadder_Chain_Deterministic(t *testing.T) {
 	t.Parallel()
-	w := New()
+
 	// Ladder results are non-deterministic, e.g. dog-cat pair may return [dog cog cot cat] or [dog dot dat cat].
 	// To visualize common examples in tests it's easier to force only one possibility by excluding some words.
 	exclude := map[string]struct{}{
@@ -80,11 +84,13 @@ func TestLadder_Chain_Deterministic(t *testing.T) {
 		"baloo": {},
 		"balon": {},
 	}
+
 	// w.Load("/usr/share/dict/words")
-	err := w.Load("testdata/words_alpha.txt", exclude)
-	if err != nil {
+	w := ladder.New()
+	if err := w.Load("testdata/words_alpha.txt", exclude); err != nil {
 		t.Errorf("unable to load word list: %v", err)
 	}
+
 	for _, tt := range tests {
 		tt := tt
 		name := tt.args.start + "-" + tt.args.end
@@ -93,6 +99,7 @@ func TestLadder_Chain_Deterministic(t *testing.T) {
 			gotWords, err := w.Chain(tt.args.start, tt.args.end)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Chain() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 			if !reflect.DeepEqual(gotWords, tt.wantWords) {
@@ -109,19 +116,21 @@ func TestLadder_Chain_NonDeterministic(t *testing.T) {
 	// * length of the ladder needs to be the same because algorithm should pick always shortest path
 	// * distance between words should always be the same, just one letter difference
 	// * first and last word should match initial start and end word
-	w := New()
-	err := w.Load("testdata/words_alpha.txt", map[string]struct{}{})
-	if err != nil {
+	w := ladder.New()
+	if err := w.Load("testdata/words_alpha.txt", map[string]struct{}{}); err != nil {
 		t.Errorf("unable to load word list: %v", err)
 	}
+
 	for _, tt := range tests {
 		tt := tt
 		name := tt.args.start + "-" + tt.args.end
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
+
 			gotWords, err := w.Chain(tt.args.start, tt.args.end)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Chain() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 
@@ -137,8 +146,9 @@ func TestLadder_Chain_NonDeterministic(t *testing.T) {
 				}
 
 				// An overkill to initialize word to just use Score() algorithms but it's a test 🤷
-				w := &word{
-					text: gotWords[i-1],
+				w := &ladder.Word{
+					Text:           gotWords[i-1],
+					Neighbourhoods: nil,
 				}
 				expected := 1
 				hScore := w.Score(gotWords[i])
@@ -165,10 +175,14 @@ func TestLadder_Chain_Errors(t *testing.T) {
 
 	var err error
 
-	w := New()
+	w := ladder.New()
 
 	if _, err = w.Chain("cat", "dog"); err == nil {
 		t.Error("expected an error: dictionary is not loaded yet")
+	}
+
+	if err := w.Load("testdata/words_alpha.txt", map[string]struct{}{}); err != nil {
+		t.Errorf("unable to load word list: %v", err)
 	}
 
 	if _, err = w.Chain("cat", "mouse"); err == nil {
@@ -181,7 +195,7 @@ func TestLadder_Chain_Errors(t *testing.T) {
 }
 
 func ExampleLadder_Chain() {
-	l := New()
+	l := ladder.New()
 	if err := l.Load("/usr/share/dict/words", nil); err != nil {
 		panic(err)
 	}
@@ -191,7 +205,7 @@ func ExampleLadder_Chain() {
 		panic(err)
 	}
 
-	fmt.Println(words)
+	fmt.Fprintln(os.Stdout, words)
 	// Output:
 	// [gold goad load lead]
 }

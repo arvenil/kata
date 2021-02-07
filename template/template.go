@@ -9,14 +9,12 @@ import (
 
 // basicFunctions are the set of initial
 // functions provided to every template.
-var basicFunctions = template.FuncMap{
+var basicFunctions = template.FuncMap{ //nolint:gochecknoglobals
 	"json": func(v interface{}) string {
 		buf := &bytes.Buffer{}
 		enc := json.NewEncoder(buf)
 		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-		}
+		_ = enc.Encode(v)
 		// Remove the trailing new line added by the encoder
 		return strings.TrimSpace(buf.String())
 	},

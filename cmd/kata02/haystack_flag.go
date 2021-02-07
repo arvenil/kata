@@ -26,6 +26,7 @@ func (h *haystackFlag) Set(value string) error {
 		if err != nil {
 			return fmt.Errorf("%v is not an integer", word)
 		}
+
 		*h = append(*h, i)
 	}
 

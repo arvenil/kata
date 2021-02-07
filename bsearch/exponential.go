@@ -21,8 +21,9 @@ func Exponential(n int, h []int) int {
 		b *= 2
 	}
 
-	l := b / 2
+	l := b / 2 //nolint:gomnd
 	r := b + 1
+
 	if len(h)-1 < r {
 		r = len(h) - 1
 	}

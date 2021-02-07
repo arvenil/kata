@@ -10,7 +10,7 @@ import (
 )
 
 // Format contains configuration required to format output.
-var Format format.Format
+var Format format.Format //nolint:gochecknoglobals
 
 func init() {
 	flag.StringVar(&Format.Text, "template", "", "pretty-print results using a Go template")

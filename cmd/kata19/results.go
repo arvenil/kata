@@ -23,6 +23,7 @@ func (r *Results) Append(start, end string, words []string, err error) {
 	if err != nil {
 		errString = fmt.Sprintf("%s", err)
 	}
+
 	*r = append(*r, result{
 		Start: start,
 		End:   end,
@@ -48,5 +49,6 @@ func (r Results) String() string {
 	headers := strings.Join(header, "\t")
 	fields := strings.Join(field, "\t")
 	f := headers + "\n{{range .}}" + fields + "\n{{end}}"
+
 	return flags.Format.Parse(f, r)
 }

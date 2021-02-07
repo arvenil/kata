@@ -2,7 +2,7 @@ package ladder
 
 // A node in a priorityQueue.
 type node struct {
-	word   *word
+	word   *Word
 	fScore int
 	gScore int
 	prev   *node // Previous node.
@@ -29,7 +29,7 @@ func (pq priorityQueue) Swap(i, j int) {
 	pq[j].index = j
 }
 
-// push pushes the element x into priorityQueue.
+// Push pushes the element x into priorityQueue.
 func (pq *priorityQueue) Push(x interface{}) {
 	n := len(*pq)
 	item := x.(*node)
@@ -45,5 +45,6 @@ func (pq *priorityQueue) Pop() interface{} {
 	old[n-1] = nil  // avoid memory leak
 	item.index = -1 // for safety
 	*pq = old[0 : n-1]
+
 	return item
 }

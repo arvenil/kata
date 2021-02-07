@@ -20,7 +20,7 @@ If the algorithms ends with the remaining half being empty, the target is not in
 
 	Usage of kata02:
 	  -algorithm string
-			choose from: exponential, interpolation, loop, loopslicing, recursive, recursiveslicing, standard (default "interpolation")
+			choose from: exponential, interpolation (default), loop, loopslicing, recursive, recursiveslicing, standard
 	  -haystack value
 			comma-separated, sorted, list of integers e.g. 1,5,7
 	  -needle int
@@ -63,6 +63,6 @@ cmd/kata19:
 	gold   lead   [gold goad load lead]
 	above  below  [above amove amoke smoke smoky sooky booky booly bolly bally balli balai balao baloo balow below]
 	soup   rice   [soup roup roue role rile rice]
-	kata19 -p dog,cat -p godo,loto -p kot,pies -p gold,lead -p above,below -p   5.44s user 0.50s system 197% cpu 3.010 total
+	5.44s user 0.50s system 197% cpu 3.010 total
 */
 package kata

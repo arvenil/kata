@@ -10,6 +10,7 @@ func ExampleMain() {
 		"--needle", "7",
 		"--haystack", "1,3,5,6,7,10",
 	}
+
 	main()
 	// Output:
 	// 4

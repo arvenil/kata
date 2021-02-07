@@ -2,7 +2,7 @@
 kata02 command usage.
 
   -algorithm string
-        choose one: interpolation, loop, loopexponential, loopslicing, recursive, recursiveslicing, standard (default "interpolation")
+        choose one: interpolation (default), loop, loopexponential, loopslicing, recursive, recursiveslicing, standard
   -haystack value
         an ordered, comma separated, list of integers
   -needle int

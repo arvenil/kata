@@ -14,9 +14,9 @@ func New() *Ladder {
 
 // Ladder is a word-ladder puzzle solver.
 type Ladder struct {
-	words map[string]*word
+	words map[string]*Word
 	// [co*d][cord]
-	masks map[string]map[string]*word
+	masks map[string]map[string]*Word
 }
 
 // Chain of words from start to end, in which two adjacent words
@@ -47,31 +47,32 @@ func (l *Ladder) Chain(start, end string) (words []string, err error) {
 		fScore: word.Score(end),
 	}
 	items := map[string]*node{}
-	items[word.text] = item
+	items[word.Text] = item
 
 	heap.Push(openSet, item)
 
 	for openSet.Len() > 0 {
 		current := heap.Pop(openSet).(*node)
-		if current.word.text == end {
+		if current.word.Text == end {
 			for current != nil {
-				words = append([]string{current.word.text}, words...)
+				words = append([]string{current.word.Text}, words...)
 				current = current.prev
 			}
 
 			return words, nil
 		}
 
-		for _, neighbourhood := range current.word.neighbourhoods {
+		for _, neighbourhood := range current.word.Neighbourhoods {
 			for _, neighbour := range neighbourhood {
-				item, ok := items[neighbour.text]
+				item, ok := items[neighbour.Text]
 				if !ok {
 					item = &node{
 						gScore: 100000000,
 						fScore: 100000000,
 					}
-					items[neighbour.text] = item
+					items[neighbour.Text] = item
 				}
+
 				gScoreTentative := current.gScore + 1
 				if gScoreTentative < item.gScore {
 					item.word = neighbour
@@ -100,8 +101,8 @@ func (l *Ladder) Load(path string, exclude map[string]struct{}) error {
 	}
 	defer file.Close()
 
-	l.words = map[string]*word{}
-	l.masks = map[string]map[string]*word{}
+	l.words = map[string]*Word{}
+	l.masks = map[string]map[string]*Word{}
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -122,19 +123,19 @@ func (l *Ladder) Load(path string, exclude map[string]struct{}) error {
 
 // push word w into dictionary.
 func (l *Ladder) push(w string) {
-	l.words[w] = &word{
-		text:           w,
-		neighbourhoods: map[string]map[string]*word{},
+	l.words[w] = &Word{
+		Text:           w,
+		Neighbourhoods: map[string]map[string]*Word{},
 	}
 
 	for i := range w {
 		mask := w[:i] + "*" + w[i+1:]
 		if l.masks[mask] == nil {
-			l.masks[mask] = map[string]*word{}
+			l.masks[mask] = map[string]*Word{}
 		}
 
 		l.masks[mask][w] = l.words[w]
-		l.words[w].neighbourhoods[mask] = l.masks[mask]
+		l.words[w].Neighbourhoods[mask] = l.masks[mask]
 	}
 }
 

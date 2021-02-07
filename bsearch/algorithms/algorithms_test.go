@@ -1,23 +1,26 @@
-package algorithms
+package algorithms_test
 
 import (
 	"fmt"
 	"math/rand"
 	"sort"
 	"testing"
+
+	"github.com/arvenil/kata/bsearch/algorithms"
 )
 
 type args struct {
 	i int
 	v []int
 }
+
 type test struct {
 	args args
 	want int
 }
 
 // Examples taken from http://codekata.com/kata/kata02-karate-chop/ and treated with:
-// %s/assert_equal(\(-\?[0-9]\+\), \+chop(\([0-9]\+\), \[\(.*\)\]))/{args{\2,[]int{\3}}, \1},/g
+//   %s/assert_equal(\(-\?[0-9]\+\), \+chop(\([0-9]\+\), \[\(.*\)\]))/{args{\2,[]int{\3}}, \1},/g
 var tests = []test{
 	{args{3, []int{}}, -1},
 	{args{3, []int{1}}, -1},
@@ -41,15 +44,23 @@ var tests = []test{
 }
 
 func TestSearch(t *testing.T) {
-	for _, f := range Slice {
+	t.Parallel()
+
+	for _, algorithm := range algorithms.Slice {
+		algorithm := algorithm
+
 		for _, tt := range tests {
+			tt := tt
 			// First, sanity check if provided slice is sorted.
 			if !sort.IntsAreSorted(tt.args.v) {
 				t.Errorf("ints are not sorted: %v", tt.args.v)
 			}
-			name := fmt.Sprintf("%s(%v,%v)", f.Name(), tt.args.i, tt.args.v)
+
+			name := fmt.Sprintf("%s(%v,%v)", algorithm, tt.args.i, tt.args.v)
 			t.Run(name, func(t *testing.T) {
-				if got := f.Search(tt.args.i, tt.args.v); got != tt.want {
+				t.Parallel()
+
+				if got := algorithm.Search(tt.args.i, tt.args.v); got != tt.want {
 					t.Errorf("%s = %v, want %v", name, got, tt.want)
 				}
 			})
@@ -60,20 +71,26 @@ func TestSearch(t *testing.T) {
 func BenchmarkSearch(b *testing.B) {
 	// Generate large slice for benchmark.
 	rand.Seed(42)
-	var largeSet []int
-	n := 0
+
+	var (
+		largeSet []int
+		n        = 0
+	)
+
 	for i := 1; i < 1000000; i++ {
-		n += rand.Intn(10)
+		n += rand.Intn(10) //nolint:gosec
 		largeSet = append(largeSet, n)
 	}
+
 	tests := append(tests, test{args{4686, largeSet}, 998})
 
-	for _, f := range Slice {
-		b.Run(f.Name(), func(b *testing.B) {
+	for _, algorithm := range algorithms.Slice {
+		algorithm := algorithm
+		b.Run(algorithm.String(), func(b *testing.B) {
 			for n := 0; n < b.N; n++ {
 				for _, tt := range tests {
-					if got := f.Search(tt.args.i, tt.args.v); got != tt.want {
-						b.Errorf("%s(%v) = %v, want %v", f.Name(), tt.args.i, got, tt.want)
+					if got := algorithm.Search(tt.args.i, tt.args.v); got != tt.want {
+						b.Errorf("%s(%v) = %v, want %v", algorithm, tt.args.i, got, tt.want)
 					}
 				}
 			}

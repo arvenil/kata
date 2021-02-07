@@ -18,14 +18,16 @@ func Interpolation(n int, h []int) int {
 
 	l := 0
 	r := len(h) - 1
+
 	for (h[r] != h[l]) && (n >= h[l]) && (n <= h[r]) {
 		m := l + (n-h[l])*(r-l)/(h[r]-h[l])
 
-		if h[m] < n {
+		switch {
+		case h[m] < n:
 			l = m + 1
-		} else if h[m] > n {
+		case h[m] > n:
 			r = m - 1
-		} else {
+		default:
 			return m
 		}
 	}

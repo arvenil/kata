@@ -14,11 +14,12 @@ func Parse(format string, data interface{}) string {
 	if err != nil {
 		return err.Error()
 	}
+
 	if err := tmpl.Execute(w, data); err != nil {
 		return err.Error()
 	}
 
-	w.Flush()
+	_ = w.Flush()
 
 	return b.String()
 }

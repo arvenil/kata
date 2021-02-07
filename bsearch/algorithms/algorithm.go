@@ -6,5 +6,5 @@ package algorithms
 // Algorithm has name.
 type Algorithm interface {
 	Search(n int, h []int) int
-	Name() string
+	String() string
 }

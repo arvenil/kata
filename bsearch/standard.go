@@ -14,5 +14,6 @@ func Standard(n int, h []int) int {
 	if i < len(h) && h[i] == n {
 		return i
 	}
+
 	return -1
 }
