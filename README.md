@@ -1,4 +1,4 @@
-# Kata 形 🤺
+# Kata 形🤺
 [![GoDoc](https://godoc.org/github.com/arvenil/kata?status.svg)](https://pkg.go.dev/github.com/arvenil/kata?tab=doc)
 [![Go Report Card](https://goreportcard.com/badge/github.com/arvenil/kata)](https://goreportcard.com/report/github.com/arvenil/kata)
 [![BuildStatus](https://github.com/arvenil/kata/workflows/go/badge.svg)](https://github.com/arvenil/kata/actions?query=workflow%3Ago)
@@ -17,7 +17,9 @@ brew tap arvenil/kata
 brew install kata
 ```
 
-# bsearch
+# Usage
+
+## bsearch
 
 In computer science, binary algorithms, also known as half-interval algorithms, logarithmic algorithms, or binary chop,
 is a algorithms algorithm that finds the position of a target value within a sorted array.
@@ -57,7 +59,7 @@ BenchmarkSearch/standard-12                      2132502               558 ns/op
 ...
 ```
 
-# ladder
+## ladder
 
 A word-ladder puzzle begins with two words,
 and to solve the puzzle one must find a chain of other words to link the two,
@@ -109,4 +111,10 @@ $ ladder -p above,below -json | jq .
     ]
   }
 ]
+```
+
+# Release
+
+```sh
+GITHUB_TOKEN=secret_token make release
 ```
