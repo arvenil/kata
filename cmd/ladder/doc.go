@@ -1,5 +1,5 @@
 /*
-kata19 command usage.
+ladder command usage.
 
   -d string
         path to dictionary (default "/usr/share/dict/words")

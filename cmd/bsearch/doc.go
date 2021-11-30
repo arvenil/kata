@@ -1,5 +1,5 @@
 /*
-kata02 command usage.
+bsearch command usage.
 
   -algorithm string
         choose one: interpolation (default), loop, loopexponential, loopslicing, recursive, recursiveslicing, standard

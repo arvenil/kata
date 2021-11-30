@@ -93,8 +93,11 @@ func (l *Ladder) Chain(start, end string) (words []string, err error) {
 	return nil, fmt.Errorf("could not find word ladder")
 }
 
+// Dictionary is hashtable where key is a word.
+type Dictionary map[string]struct{}
+
 // Load dictionary from path but without words on exclude list.
-func (l *Ladder) Load(path string, exclude map[string]struct{}) error {
+func (l *Ladder) Load(path string, exclude Dictionary) error {
 	file, err := os.Open(path)
 	if err != nil {
 		return err

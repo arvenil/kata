@@ -1,14 +1,14 @@
 builds:
 -
-  id: kata02
-  binary: kata02
-  main: ./cmd/kata02
+  id: bsearch
+  binary: bsearch
+  main: ./cmd/bsearch
   env:
     - CGO_ENABLED=0
 -
-  id: kata19
-  binary: kata19
-  main: ./cmd/kata19
+  id: ladder
+  binary: ladder
+  main: ./cmd/ladder
   env:
     - CGO_ENABLED=0
 archives:
@@ -36,8 +36,8 @@ brews:
     description: "Kata 形🤺 exercises"
     folder: Formula
     test: |
-      system "#{bin}/kata02 -h"
-      system "#{bin}/kata19 -h"
+      system "#{bin}/bsearch -h"
+      system "#{bin}/ladder -h"
 signs:
   - artifacts: all
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]

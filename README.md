@@ -17,7 +17,7 @@ brew tap arvenil/kata
 brew install kata
 ```
 
-# Kata02
+# bsearch
 
 In computer science, binary algorithms, also known as half-interval algorithms, logarithmic algorithms, or binary chop,
 is a algorithms algorithm that finds the position of a target value within a sorted array.
@@ -28,8 +28,8 @@ and repeating this until the target value is found.
 If the algorithms ends with the remaining half being empty, the target is not in the array.
 
 ```bash
-$ kata02
-Usage of kata02:
+$ bsearch
+Usage of bsearch:
   -algorithm string
         choose from: exponential, interpolation, loop, loopslicing, recursive, recursiveslicing, standard (default "interpolation")
   -haystack value
@@ -39,7 +39,7 @@ Usage of kata02:
 ```
 
 ```bash
-$ kata02 --needle 5 --haystack 1,3,5,7
+$ bsearch --needle 5 --haystack 1,3,5,7
 2
 ```
 
@@ -57,15 +57,15 @@ BenchmarkSearch/standard-12                      2132502               558 ns/op
 ...
 ```
 
-# Kata19
+# ladder
 
 A word-ladder puzzle begins with two words,
 and to solve the puzzle one must find a chain of other words to link the two,
 in which two adjacent words (that is, words in successive steps) differ by one letter.
 
 ```bash
-$ kata19
-Usage of kata19:
+$ ladder
+Usage of ladder:
   -d string
         path to dictionary (default "/usr/share/dict/words")
   -json
@@ -77,14 +77,14 @@ Usage of kata19:
 ```
 
 ```bash
-$ kata19 -p dog,cat -p gold,lead
+$ ladder -p dog,cat -p gold,lead
 start  end   word-ladder            error (if any)
 dog    cat   [dog dot cot cat]     
 gold   lead  [gold goad load lead]  
 ```
 
 ```json
-$ kata19 -p above,below -json | jq .
+$ ladder -p above,below -json | jq .
 [
   {
     "Start": "above",
