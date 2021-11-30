@@ -83,7 +83,7 @@ dog    cat   [dog dot cot cat]
 gold   lead  [gold goad load lead]  
 ```
 
-```json
+```bash
 $ ladder -p above,below -json | jq .
 [
   {
