@@ -9,19 +9,19 @@ import (
 type Algorithms []Algorithm
 
 // Map of Algorithms indexed by name.
-func (f Algorithms) Map() map[string]Algorithm {
-	funcs := make(map[string]Algorithm, len(f))
-	for _, f := range f {
-		funcs[f.String()] = f
+func (a Algorithms) Map() map[string]Algorithm {
+	fs := make(map[string]Algorithm, len(a))
+	for _, f := range a {
+		fs[f.String()] = f
 	}
 
-	return funcs
+	return fs
 }
 
 // Names of Algorithms as sorted slice of strings.
-func (f Algorithms) Names() []string {
-	names := make([]string, 0, len(f))
-	for _, f := range f {
+func (a Algorithms) Names() []string {
+	names := make([]string, 0, len(a))
+	for _, f := range a {
 		names = append(names, f.String())
 	}
 
@@ -31,6 +31,6 @@ func (f Algorithms) Names() []string {
 }
 
 // String returns sorted and comma-space-separated Algorithm names.
-func (f Algorithms) String() string {
-	return strings.Join(f.Names(), ", ")
+func (a Algorithms) String() string {
+	return strings.Join(a.Names(), ", ")
 }
