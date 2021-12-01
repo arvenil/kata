@@ -33,7 +33,13 @@ If the algorithms ends with the remaining half being empty, the target is not in
 $ bsearch
 Usage of bsearch:
   -algorithm string
-        choose from: exponential, interpolation, loop, loopslicing, recursive, recursiveslicing, standard (default "interpolation")
+        exponential,
+        interpolation,
+        loop,
+        loopslicing,
+        recursive,
+        recursiveslicing,
+        standard (default "interpolation")
   -haystack value
         comma-separated, sorted, list of integers e.g. 1,5,7
   -needle int

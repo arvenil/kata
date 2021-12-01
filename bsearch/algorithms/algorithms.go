@@ -32,5 +32,5 @@ func (a Algorithms) Names() []string {
 
 // String returns sorted and comma-space-separated Algorithm names.
 func (a Algorithms) String() string {
-	return strings.Join(a.Names(), ", ")
+	return strings.Join(a.Names(), ", \n")
 }

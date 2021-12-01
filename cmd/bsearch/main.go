@@ -18,7 +18,7 @@ var (
 func init() {
 	flag.IntVar(&needle, "needle", 0, "an integer to search for in haystack e.g. 5")
 	flag.Var(&haystack, "haystack", "comma-separated, sorted, list of integers e.g. 1,5,7")
-	flag.StringVar(&algorithm, "algorithm", algorithms.Slice[0].String(), fmt.Sprintf("choose from: %s", algorithms.Slice))
+	flag.StringVar(&algorithm, "algorithm", algorithms.Slice[0].String(), algorithms.Slice.String())
 }
 
 func main() {
