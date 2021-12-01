@@ -112,8 +112,8 @@ func TestLadder_Chain_Deterministic(t *testing.T) {
 func TestLadder_Chain_NonDeterministic(t *testing.T) {
 	t.Parallel()
 	// Results may differ each run when we use full dictionary as there are multiple possible outcomes.
-	// However there are certain characteristics which we can verify:
-	// * length of the ladder needs to be the same because algorithm should pick always shortest path
+	// However, there are certain characteristics which we can verify:
+	// * length of the ladder needs to be the same because algorithm should pick always the shortest path
 	// * distance between words should always be the same, just one letter difference
 	// * first and last word should match initial start and end word
 	w := ladder.New()
