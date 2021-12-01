@@ -9,18 +9,19 @@ test:                     ## Run tests.
 bench:                    ## Run benchmarks.
 	go test -v -race -run=XXX -bench=. ./...
 
+release: export GPG_FINGERPRINT:=284E7B63A3840723B4FC8354A31DBFF63363B349
 release:                  ## Create new release. Requires GITHUB_TOKEN to be set.
 						  ## In order to release to GitHub,
 						  ## you'll need to export a GITHUB_TOKEN environment variable,
 						  ## which should contain a valid GitHub token with the repo scope.
 						  ## It will be used to deploy releases to your GitHub repository.
 						  ## You can create a new github token here: https://github.com/settings/tokens/new
-						  ## Run `VERSION=1.1.0 GITHUB_TOKEN=secret_token make release`.
+						  ## Run `VERSION=1.1.2 GITHUB_TOKEN=secret_token make release`.
 	go install github.com/goreleaser/goreleaser@latest
 	#goreleaser init
 	goreleaser check
-	git ls-remote --exit-code --tags origin "v$(VERSION)" \
-		|| git tag "v$(VERSION)" -m "Kata 形🤺 $(VERSION)"
+	rm -rf dist
+	git tag "v$(VERSION)" -m "Kata 形🤺 $(VERSION)" || true
 	goreleaser release
 
 fmt:	                  ## Format code.
