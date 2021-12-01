@@ -9,25 +9,28 @@ test:                     ## Run tests.
 bench:                    ## Run benchmarks.
 	go test -v -race -run=XXX -bench=. ./...
 
+tag: export VERSION ?= $(shell cat VERSION)
+tag:
+	test -n "$(VERSION)" || error "set VERSION environment variable"
+	git tag -d v$(VERSION) || true
+	git tag v$(VERSION) -m "Kata 形🤺 $(VERSION)"
+	git push origin v$(VERSION)
+
 release: export GITHUB_TOKEN ?= $(shell cat github.token)
 release: export GPG_FINGERPRINT ?= $(shell cat gpg.fingerprint)
-release: export VERSION ?= $(shell cat VERSION)
-release: ## Create new release. Requires GITHUB_TOKEN to be set.
+release: tag              ## Create new release. Requires GITHUB_TOKEN to be set.
 	@# In order to release to GitHub,
 	@# you'll need to export a GITHUB_TOKEN environment variable,
 	@# which should contain a valid GitHub token with the repo scope.
 	@# It will be used to deploy releases to your GitHub repository.
 	@# You can create a new github token here: https://github.com/settings/tokens/new
 	@# Run `VERSION=1.1.2 GITHUB_TOKEN=secret_token make release`.
-	test -n "$(VERSION)"         || error "set VERSION environment variable"
 	test -n "$(GITHUB_TOKEN)"    || error "set GITHUB_TOKEN environment variable"
 	test -n "$(GPG_FINGERPRINT)" || error "set GPG_FINGERPRINT environment variable"
 	go install github.com/goreleaser/goreleaser@latest
 	#goreleaser init
 	goreleaser check
 	rm -rf dist
-	git tag -d v$(VERSION) || true
-	git tag v$(VERSION) -m "Kata 形🤺 $(VERSION)"
 	goreleaser release
 
 fmt:	                  ## Format code.
