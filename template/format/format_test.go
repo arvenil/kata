@@ -25,7 +25,12 @@ func TestFormat_Parse(t *testing.T) {
 		args   args
 		want   string
 	}{
-		{"json", fields{Text: "", JSON: true}, args{"", &format.Format{}}, "{\"Text\":\"\",\"JSON\":false}"},
+		{
+			"json",
+			fields{Text: "", JSON: true},
+			args{"", &format.Format{}},
+			"{\"Text\":\"\",\"JSON\":false}",
+		},
 	}
 
 	for _, tt := range tests {

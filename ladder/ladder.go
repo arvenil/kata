@@ -117,11 +117,7 @@ func (l *Ladder) Load(path string, exclude Dictionary) error {
 		l.push(text)
 	}
 
-	if err := scanner.Err(); err != nil {
-		return err
-	}
-
-	return nil
+	return scanner.Err()
 }
 
 // push word w into dictionary.
