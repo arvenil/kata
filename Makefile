@@ -24,7 +24,7 @@ release: tag              ## Create new release. Requires GITHUB_TOKEN to be set
 	@# which should contain a valid GitHub token with the repo scope.
 	@# It will be used to deploy releases to your GitHub repository.
 	@# You can create a new github token here: https://github.com/settings/tokens/new
-	@# Run `VERSION=1.1.2 GITHUB_TOKEN=secret_token make release`.
+	@# Run `VERSION=1.2.0 GITHUB_TOKEN=secret_token make release`.
 	test -n "$(GITHUB_TOKEN)"    || error "set GITHUB_TOKEN environment variable"
 	test -n "$(GPG_FINGERPRINT)" || error "set GPG_FINGERPRINT environment variable"
 	go install github.com/goreleaser/goreleaser@latest
