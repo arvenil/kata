@@ -9,11 +9,6 @@ import (
 func TestFormat_Parse(t *testing.T) {
 	t.Parallel()
 
-	type fields struct {
-		Text string
-		JSON bool
-	}
-
 	type args struct {
 		text string
 		data interface{}
@@ -21,14 +16,26 @@ func TestFormat_Parse(t *testing.T) {
 
 	tests := []struct {
 		name   string
-		fields fields
+		format format.Format
 		args   args
 		want   string
 	}{
 		{
+			"text",
+			format.Format{Text: "", JSON: false},
+			args{"{{.JSON}}", &format.Format{
+				Text: "",
+				JSON: false,
+			}},
+			"false",
+		},
+		{
 			"json",
-			fields{Text: "", JSON: true},
-			args{"", &format.Format{}},
+			format.Format{Text: "", JSON: true},
+			args{"", &format.Format{
+				Text: "",
+				JSON: false,
+			}},
 			"{\"Text\":\"\",\"JSON\":false}",
 		},
 	}
@@ -38,11 +45,7 @@ func TestFormat_Parse(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			f := format.Format{
-				Text: tt.fields.Text,
-				JSON: tt.fields.JSON,
-			}
-			if got := f.Parse(tt.args.text, tt.args.data); got != tt.want {
+			if got := tt.format.Parse(tt.args.text, tt.args.data); got != tt.want {
 				t.Errorf("Parse() = %v, want %v", got, tt.want)
 			}
 		})
